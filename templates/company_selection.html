@@ -1,10 +1,10 @@
 {% extends 'admin/base.html' %}
 {% block content %}
-<form method="post">
+<form method="post" action="{% url 'company_selection' %}">
     {% csrf_token %}
     <select name="tenant">
         {% for company in user.companies.all %}
-        <option value="{{company.id}}">
+        <option value="{{company.id}}" {% if company.id == current_company.id %}selected{% endif %}>
             {{company}}
         </option>
         {% endfor %}
@@ -13,3 +13,4 @@
     <form>
 
 {% endblock content %}
+<script>

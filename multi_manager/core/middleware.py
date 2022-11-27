@@ -1,7 +1,8 @@
 
 import threading
 from .utils import hostname_from_request
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy,reverse
 THREAD_LOCAL = threading.local()
 
 
@@ -21,8 +22,10 @@ class TenantMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        if request.user.is_authenticated and not request.session.get('tenant'):
+            if request.path != reverse('company_selection') and request.path != reverse('admin:logout'):
+                return HttpResponseRedirect(reverse_lazy('company_selection'))
         request.tenant=request.session.get('tenant')
-        
         setattr(THREAD_LOCAL, "tenant", request.tenant)
         
         response = self.get_response(request)

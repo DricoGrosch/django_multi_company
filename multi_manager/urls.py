@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from .core.views import *
 urlpatterns = [
-    path('company_selection/',CompanySelectionView.as_view()),
+    path('company_selection/',CompanySelectionView.as_view(),name='company_selection'),
     path('admin/', admin.site.urls),
 ]

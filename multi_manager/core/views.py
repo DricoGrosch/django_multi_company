@@ -13,5 +13,6 @@ class CompanySelectionView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         request.session['tenant']=request.POST['tenant']
-        print('aljsdjkashdkjsa')
+        if request.POST.get('next'):
+            return HttpResponseRedirect(request.POST.get('next'))
         return HttpResponseRedirect(reverse_lazy('admin:index'))
