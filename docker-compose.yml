@@ -1,0 +1,15 @@
+services:
+  django:
+    container_name: django
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+  # db:
+  #   container_name: db
+  #   image: postgres:14.5-alpine
+  #   volumes:
+  #     - ./db:/var/lib/postgresql/data
+    # env_file:
+    #   - .ve
